@@ -50,12 +50,17 @@ public class Player : MonoBehaviour
         }
         velocity = Mathf.Lerp(velocity, direction, shift * Time.deltaTime);
 
+        if(velocity < 0.000003f && velocity > -0.000003f)
+        {
+            velocity = 0;
+        }
+
         Vector2 pos = this.transform.position;
         pos.x += (speed * velocity * Time.deltaTime);
         transform.position = pos;
 
         animTime += Time.deltaTime * (Mathf.Abs(velocity))*(speed*2);
-        Debug.Log((int)animTime);
+        //Debug.Log((int)animTime);
         if((int)animTime >= 1)
         {
             Debug.Log("SOY MAYOR");
@@ -99,4 +104,14 @@ public class Player : MonoBehaviour
             animState = state;
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject.name);
+    }
+
+    /*public Vector2 GetPlayerPosition()
+    {
+        return this.transform.position;
+    }*/
 }

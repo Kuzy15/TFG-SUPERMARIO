@@ -829,6 +829,7 @@ GameObject:
   m_Component:
   - component: {fileID: 515892098}
   - component: {fileID: 515892099}
+  - component: {fileID: 515892100}
   m_Layer: 0
   m_Name: Mario_0
   m_TagString: Untagged
@@ -900,6 +901,32 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &515892100
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515892097}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2}
+  m_EdgeRadius: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,6 +938,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -926,6 +954,19 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c46511009b46eb4b9351b27122aab36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 2013927820}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -1998,6 +2039,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ed42399f138f2d41a79b9f95be680ec, type: 3}
+--- !u!1 &1629322747 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8365705813019250962, guid: 4e5992c861857894ebac1b87919a5da9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6756651229396434559}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1629322749
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629322747}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &1655916299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2910,8 +2978,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2013927820}
-  - component: {fileID: 2013927819}
   - component: {fileID: 2013927818}
+  - component: {fileID: 2013927819}
   m_Layer: 0
   m_Name: Mario
   m_TagString: Untagged
@@ -2931,7 +2999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b6e18029dd0e4e498ccdb462958b7d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 8
   shift: 8
   jumpSpeed: 0
   velocity: 0
@@ -2949,32 +3017,27 @@ MonoBehaviour:
   - {fileID: -1516733375807340374, guid: 2192ddc7f27f6da498a1880de056ead4, type: 3}
   bigIdle:
   - {fileID: 4120955195336003847, guid: 2192ddc7f27f6da498a1880de056ead4, type: 3}
---- !u!61 &2013927819
-BoxCollider2D:
+--- !u!50 &2013927819
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2013927817}
-  m_Enabled: 1
-  m_Density: 1
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2}
-  m_EdgeRadius: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!4 &2013927820
 Transform:
   m_ObjectHideFlags: 0
@@ -2988,7 +3051,7 @@ Transform:
   m_Children:
   - {fileID: 515892098}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2029051836
 PrefabInstance:
@@ -3240,7 +3303,7 @@ PrefabInstance:
     - target: {fileID: 6203906883290968981, guid: 4e5992c861857894ebac1b87919a5da9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.5241838
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6203906883290968981, guid: 4e5992c861857894ebac1b87919a5da9,
         type: 3}
@@ -3265,7 +3328,7 @@ PrefabInstance:
     - target: {fileID: 6203906883290968981, guid: 4e5992c861857894ebac1b87919a5da9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6203906883290968981, guid: 4e5992c861857894ebac1b87919a5da9,
         type: 3}
@@ -3281,6 +3344,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4436412193262854764, guid: 4e5992c861857894ebac1b87919a5da9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5608173732581247879, guid: 4e5992c861857894ebac1b87919a5da9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4815780912260487306, guid: 4e5992c861857894ebac1b87919a5da9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3231485865492495682, guid: 4e5992c861857894ebac1b87919a5da9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 80602738218638269, guid: 4e5992c861857894ebac1b87919a5da9,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427259526859979031, guid: 4e5992c861857894ebac1b87919a5da9,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4092560496852155161, guid: 4e5992c861857894ebac1b87919a5da9,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1246364230272380237, guid: 4e5992c861857894ebac1b87919a5da9,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e5992c861857894ebac1b87919a5da9, type: 3}
