@@ -9,17 +9,27 @@ public class Player : MonoBehaviour
     public float jumpSpeed = 2;
     public float velocity = 0;
     public float gravity = 1;
-    public float direction = 0;
+    public float jumpForce = 0;
+   
+
     private SpriteRenderer marioSprite;
+
     public Sprite[] smallWalk;
     public Sprite[] smallIdle;
     public Sprite[] bigWalk;
     public Sprite[] bigIdle;
     private Sprite[] currentAnim;
+    private float directionX = 0;
+    private bool directionY = false;
     private bool isBig = true;
     private int animState = 0;
     private float animTime = 0;
     private int currentSprite;
+    private bool onGround = false;
+    private bool maxJump = false;
+    private Rigidbody rigidBody;
+    private RaycastHit raycastDown;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -29,17 +39,21 @@ public class Player : MonoBehaviour
         SetAnim(0, true);
         currentAnim = bigIdle;
         currentSprite = 0;
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(direction < 0)
+        directionX = Input.GetAxis("Horizontal");
+        directionY = Input.GetButton("Vertical");
+
+        if (directionX < 0)
         {
             marioSprite.flipX = true;
             SetAnim(1, true);
         }
-        else if(direction > 0)
+        else if(directionX > 0)
         {
             marioSprite.flipX = false;
             SetAnim(1, true);
@@ -48,7 +62,7 @@ public class Player : MonoBehaviour
         {
             SetAnim(0, true);
         }
-        velocity = Mathf.Lerp(velocity, direction, shift * Time.deltaTime);
+        velocity = Mathf.Lerp(velocity, directionX, shift * Time.deltaTime);
 
         if(velocity < 0.000003f && velocity > -0.000003f)
         {
@@ -63,7 +77,7 @@ public class Player : MonoBehaviour
         //Debug.Log((int)animTime);
         if((int)animTime >= 1)
         {
-            Debug.Log("SOY MAYOR");
+            //Debug.Log("SOY MAYOR");
             animTime = 0;
             currentSprite++;
         }
@@ -75,11 +89,89 @@ public class Player : MonoBehaviour
         marioSprite.sprite = currentAnim[currentSprite];
 
         // Debug.Log("Anim TIme: " + animTime);
+
+
+      
     }
 
     private void FixedUpdate()
     {
-        direction = Input.GetAxis("Horizontal");
+
+        /*
+        if (Input.GetButton("Vertical") && jumpForce <= 2f)
+        {
+
+            jumpForce += 0.5f;
+            if (directionY > 0 && onGround)
+            {
+                Debug.Log("entro");
+                rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+             
+            }
+        }
+
+        if (Input.GetButtonUp("Vertical"))
+        {
+
+            onGround = false;
+            jumpForce = 0;
+        }*/
+
+
+
+        //Debug.DrawRay(transform.position, new Vector2(0, -0.2f), Color.green);
+
+
+        Jump();
+
+        if (directionY && !maxJump)
+        {
+            rigidBody.AddForce(new Vector2(rigidBody.velocity.x, jumpForce), ForceMode.Impulse);          
+        }
+      
+       
+
+        /*if (rigidBody.velocity.y == 0 && rigidBody.velocity.x == 0)
+        {
+            onGround = true;
+        }*/
+
+
+
+
+
+
+    }
+
+    private void Jump()
+    {
+        Debug.Log(jumpForce);
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector2(0, -1)), out raycastDown, 0.2f))
+        {
+            if (raycastDown.transform.tag == ("Solid"))
+            {
+                Debug.Log("Raycast");
+                onGround = true;
+                maxJump = false;
+                jumpForce = 0.0f;
+            }
+        }
+        /* else
+         {
+             onGround = false;
+         }*/
+
+        if (directionY)
+        {
+            jumpForce++;
+            if (jumpForce >= 6.0f)
+            {
+                maxJump = true;
+                jumpForce = 0.0f;
+            }
+
+        }
     }
 
     private void SetAnim(int state, bool big)
@@ -105,10 +197,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+  /*  public void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.name);
-    }
+        if(collision.collider.tag == "Solid")
+        {
+            Debug.Log("Enter");
+            onGround = true;
+            maxJump = false;
+            jumpForce = 0.0f;
+        }
+    }*/
 
     /*public Vector2 GetPlayerPosition()
     {
