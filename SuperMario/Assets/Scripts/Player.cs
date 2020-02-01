@@ -9,7 +9,6 @@ public class Player : MonoBehaviour
     public float jumpSpeed = 2;
     public float velocity = 0;
     public float gravity = 1;
-    public float jumpForce = 0;
    
 
     private SpriteRenderer marioSprite;
@@ -20,7 +19,6 @@ public class Player : MonoBehaviour
     public Sprite[] bigIdle;
     private Sprite[] currentAnim;
     private float directionX = 0;
-    private bool directionY = false;
     private bool isBig = true;
     private int animState = 0;
     private float animTime = 0;
@@ -46,7 +44,6 @@ public class Player : MonoBehaviour
     void Update()
     {
         directionX = Input.GetAxis("Horizontal");
-        directionY = Input.GetButton("Vertical");
 
         if (directionX < 0)
         {
@@ -97,82 +94,9 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
 
-        /*
-        if (Input.GetButton("Vertical") && jumpForce <= 2f)
-        {
-
-            jumpForce += 0.5f;
-            if (directionY > 0 && onGround)
-            {
-                Debug.Log("entro");
-                rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-             
-            }
-        }
-
-        if (Input.GetButtonUp("Vertical"))
-        {
-
-            onGround = false;
-            jumpForce = 0;
-        }*/
-
-
-
-        //Debug.DrawRay(transform.position, new Vector2(0, -0.2f), Color.green);
-
-
-        Jump();
-
-        if (directionY && !maxJump)
-        {
-            rigidBody.AddForce(new Vector2(rigidBody.velocity.x, jumpForce), ForceMode.Impulse);          
-        }
-      
-       
-
-        /*if (rigidBody.velocity.y == 0 && rigidBody.velocity.x == 0)
-        {
-            onGround = true;
-        }*/
-
-
-
-
-
-
     }
 
-    private void Jump()
-    {
-        Debug.Log(jumpForce);
-
-        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector2(0, -1)), out raycastDown, 0.2f))
-        {
-            if (raycastDown.transform.tag == ("Solid"))
-            {
-                Debug.Log("Raycast");
-                onGround = true;
-                maxJump = false;
-                jumpForce = 0.0f;
-            }
-        }
-        /* else
-         {
-             onGround = false;
-         }*/
-
-        if (directionY)
-        {
-            jumpForce++;
-            if (jumpForce >= 6.0f)
-            {
-                maxJump = true;
-                jumpForce = 0.0f;
-            }
-
-        }
-    }
+   
 
     private void SetAnim(int state, bool big)
     {
@@ -197,19 +121,11 @@ public class Player : MonoBehaviour
         }
     }
 
-  /*  public void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.tag == "Solid")
+        if (collision.collider.GetComponent<MoveBlock>())
         {
-            Debug.Log("Enter");
-            onGround = true;
-            maxJump = false;
-            jumpForce = 0.0f;
+            collision.collider.GetComponent<MoveBlock>().Activate();
         }
-    }*/
-
-    /*public Vector2 GetPlayerPosition()
-    {
-        return this.transform.position;
-    }*/
+    }
 }
