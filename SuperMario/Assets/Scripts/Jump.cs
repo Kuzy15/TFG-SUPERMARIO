@@ -4,49 +4,47 @@ using UnityEngine;
 
 public class Jump : MonoBehaviour
 {
-    private bool onGround = false;
-    private bool maxJump = false;
-    private Rigidbody2D rigidBody;
-    private RaycastHit raycastDown;
-    private bool directionY = false;
+    private bool _onGround = false;
+    private bool _maxJump = false;
+    private Rigidbody2D _rigidBody;
+    private bool _directionY = false;
+
+
     public float jumpForce = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        rigidBody = this.transform.parent.GetComponentInParent<Rigidbody2D>();
+        _rigidBody = this.transform.parent.GetComponentInParent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        directionY = Input.GetButton("Vertical");
+        _directionY = Input.GetButton("Vertical");
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         JumpMove();
-        if (directionY && !maxJump && onGround)
-        {
-            rigidBody.AddForce(new Vector2(rigidBody.velocity.x, jumpForce), ForceMode2D.Impulse);
-        }
-
     }
 
     private void JumpMove()
     {
-        Debug.Log(jumpForce);
-
-
-        if (directionY)
+        if (_directionY)
         {
             jumpForce++;
             if (jumpForce >= 7.0f)
             {
-                maxJump = true;
+                _directionY = false;
+                _maxJump = true;
                 jumpForce = 0.0f;
             }
+        }
 
+        if (_directionY && !_maxJump && _onGround)
+        {
+            _rigidBody.AddForce(new Vector2(_rigidBody.velocity.x, jumpForce), ForceMode2D.Impulse);
         }
     }
 
@@ -54,9 +52,8 @@ public class Jump : MonoBehaviour
     {
         if (collision.tag == "Solid")
         {
-            Debug.Log("Enter");
-            onGround = true;
-            maxJump = false;
+            _onGround = true;
+            _maxJump = false;
             jumpForce = 0.0f;
         }
     }

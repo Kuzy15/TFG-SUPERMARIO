@@ -11,7 +11,6 @@ public class GameCamera : MonoBehaviour
     {
         if (target)
         {
-            //newPosition.z = -1;
             transform.position = new Vector3(target.position.x, (target.position.y + (GetComponent<Camera>().orthographicSize/1.6f)), -1);
         }
     }
